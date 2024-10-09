@@ -1,0 +1,41 @@
+import React, { useState } from 'react';
+import Modal from 'react-modal';
+import CATEGORIES from './Categories'; // Import categories list
+
+const AddProductModal = ({ isOpen, onClose }) => {
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('');
+  const [category, setCategory] = useState(CATEGORIES[0].value); // Set default category
+
+  const handleSubmit = () => {
+    const newProduct = { name, description, price, category };
+    // You can make an API call to add the product here
+    console.log('Adding product:', newProduct);
+    onClose(); // Close modal after adding
+  };
+
+  return (
+    <Modal isOpen={isOpen} onRequestClose={onClose} contentLabel="Add Product">
+      <h2>Add Product</h2>
+      <form>
+        <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+        <input type="text" placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
+        <input type="number" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} />
+
+        {/* Category Dropdown */}
+        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+          {CATEGORIES.map((cat) => (
+            <option key={cat.value} value={cat.value}>
+              {cat.label}
+            </option>
+          ))}
+        </select>
+      </form>
+      <button onClick={handleSubmit}>Add Product</button>
+      <button onClick={onClose}>Close</button>
+    </Modal>
+  );
+};
+
+export default AddProductModal;
