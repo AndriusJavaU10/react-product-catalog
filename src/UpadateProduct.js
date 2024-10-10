@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CATEGORIES from './Categories';
 
 
-function UpdateProduct({ productId }) {
+function UpdateProduct({ productId, onClose }) {
   // State for product details
   const [product, setProduct] = useState({
     name: '',
@@ -15,9 +15,9 @@ function UpdateProduct({ productId }) {
   useEffect(() => {
     // Fetch the existing product details
     fetch(`http://localhost:8080/api/products/${productId}`)
-      .then(response => response.json())
-      .then(data => setProduct(data))
-      .catch(error => console.error('Error fetching product:', error));
+      .then((response) => response.json())
+      .then((data) => setProduct(data))
+      .catch((error) => console.error('Error fetching product:', error));
   }, [productId]);
 
   // Handle form changes
@@ -41,12 +41,13 @@ function UpdateProduct({ productId }) {
     })
     .then(() => {
       alert('Product updated successfully');
+      onClose(); // Close the update form when successful
     })
     .catch(error => console.error('Error updating product:', error));
   };
 
   return (
-    <div>
+    <div className="update-product-modal"> {/* Galite pridėti CSS modalo stiliams */}
       <h2>Update Product</h2>
       <form onSubmit={handleUpdate}>
         <input
@@ -85,6 +86,7 @@ function UpdateProduct({ productId }) {
           ))}
         </select>
         <button type="submit">Update Product</button>
+        <button type="button" onClick={onClose}>Cancel</button> {/* Cancel button to close the form */}
       </form>
     </div>
   );

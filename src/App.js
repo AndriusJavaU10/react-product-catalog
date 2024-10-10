@@ -1,49 +1,41 @@
 
 import React, { useState } from 'react';
 import './App.css';
-// import './style.css';
-// import './troweld-html/css/bootstrap.css';
-// import './troweld-html/css/font-awesome.min.css';
-// import './troweld-html/css/responsive.css';
-// import './troweld-html/css/style.css';
-// import './troweld-html/css/style.css.map';
-// import './troweld-html/css/style.scss';
-
-
-import ProductList from './ProductList';
-import AddProduct from './AddProduct';
 import UpdateProduct from './UpadateProduct';
-import DeleteProduct from './DeleteProduct';
+import ProductPage from './ProductPage';
+
+
 
 function App() {
-// State to keep track of selected productId for editing/deleting
-const [productId, setProductId] = useState(null);
+  const [isHomePage, setIsHomePage] = useState(true); // Puslapio perjungimo būsena
+  const [productId, setProductId] = useState(null); // Pasirinktas produktas
 
-const handleSetProduct = (productId) => {
-  setProductId(productId); 
-};
+  const handleSetProduct = (productId) => {
+    setProductId(productId); // Nustatome produktą
+  };
 
-return (
-  <div>
-     
-      
-        <h1>Welcome to the Online Product Catalog</h1>
-        
+  const handlePageTransition = () => {
+    setIsHomePage(false); // Perėjimas į antrą puslapį
+  };
 
-    <AddProduct /> {/* Component to add a new product */}
-    <ProductList onSelectProduct={handleSetProduct} /> {/* ProductList component to display products */}
-    
-    {/* Conditionally render UpdateProduct and DeleteProduct only when a productId is selected */}
-    {productId && (
-        <>
-          <UpdateProduct productId={productId} />
-          <DeleteProduct productId={productId} />
-        </>
+  return (
+    <div className={`app-container ${isHomePage ? 'home-page' : 'catalog-page'}`}>
+      {isHomePage ? (
+        <div className="home-content" onClick={handlePageTransition}>
+          <h1 className="app-title">Welcome to the Online Product Catalog</h1>
+        </div>
+      ) : (
+        <div className="catalog-content">
+          {/* Produktų sąrašas ir kategorijų navigacija */}
+          <ProductPage onSelectProduct={handleSetProduct} />
+          {/* Atnaujinimo komponentas */}
+          {productId && (
+            <UpdateProduct productId={productId} />
+          )}
+        </div>
       )}
-       
-    
-  </div>
-);
+    </div>
+  );
 }
 
 export default App;
