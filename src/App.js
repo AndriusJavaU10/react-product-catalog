@@ -1,40 +1,38 @@
 
-import React, { useState } from 'react';
-import './App.css';
-import UpdateProduct from './UpadateProduct';
-import ProductPage from './ProductPage';
+import React from 'react';
+import { Routes, Route } from "react-router-dom";
+// import AppHome from './AppHome';
+// import AppProduct from './AppProduct';
+// import AppLog from './AppLog';
+import AppMain from './AppMain';
+import AppLog from './AppLog';
 
-
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Home from "./components/Home";
+import Profile from "./components/Profile";
+import BoardCustomer from "./components/BoardCustomer";
+import BoardModerator from "./components/BoardModerator";
+import BoardAdmin from "./components/BoardAdmin";
+import PrivateRoute from "./Services/privateRoute";
 
 function App() {
-  const [isHomePage, setIsHomePage] = useState(true); // Puslapio perjungimo būsena
-  const [productId, setProductId] = useState(null); // Pasirinktas produktas
-
-  const handleSetProduct = (productId) => {
-    setProductId(productId); // Nustatome produktą
-  };
-
-  const handlePageTransition = () => {
-    setIsHomePage(false); // Perėjimas į antrą puslapį
-  };
-
   return (
-    <div className={`app-container ${isHomePage ? 'home-page' : 'catalog-page'}`}>
-      {isHomePage ? (
-        <div className="home-content" onClick={handlePageTransition}>
-          <h1 className="app-title">Welcome to the Online Product Catalog</h1>
-        </div>
-      ) : (
-        <div className="catalog-content">
-          {/* Produktų sąrašas ir kategorijų navigacija */}
-          <ProductPage onSelectProduct={handleSetProduct} />
-          {/* Atnaujinimo komponentas */}
-          {productId && (
-            <UpdateProduct productId={productId} />
-          )}
-        </div>
-      )}
-    </div>
+    <>
+    <AppLog /> {/* Pagrindinis navigacijos komponentas */}
+    <Routes>
+      <Route path="/" element={<AppMain />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/profile" element={<PrivateRoute element={<Profile />} />} />
+      {/* Protected links */}
+      <Route path="/user" element={<PrivateRoute element={<BoardCustomer />} />} />
+      <Route path="/mod" element={<PrivateRoute element={<BoardModerator />} />} />
+      <Route path="/admin" element={<PrivateRoute element={<BoardAdmin />} />} />
+    </Routes>
+  </>
+   
   );
 }
 

@@ -1,0 +1,199 @@
+/* Bendras stilius */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden; /* Užtikriname, kad nebūtų horizontalios slinkties */
+    background-image: url('./images/marketplace_square.jpg');
+    background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+    background-attachment: fixed; /* Fiksuotas fonas visada lieka matomas */
+  }
+  
+  /* Pirmo puslapio stilius */
+  .home-page {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #root {
+    height: 100%;
+  }
+  
+  .app-container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  
+  /* Fono uždengimas */
+  .catalog-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white(0, 0, 0, 0.6); /* Tamsesnis fono uždengimas */
+    z-index: 1; /* Tai turi būti žemesnė nei teksto sluoksniai */
+  }
+  
+  .catalog-page {
+    min-height: 100vh;
+    position: relative;
+    z-index: 0; /* Fonas turi būti po viskuo */
+  }
+  
+  .app-title {
+    font-size: 4rem;
+    color: Balta(116, 20, 20);
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  
+  .app-title:hover {
+    transform: scale(1.05); /* Užrašas padidėja užvedus pelę */
+    color: yellowgreen; /* Užrašas keičia spalvą */
+  }
+  
+  /* Antro puslapio stilius */
+  .catalog-content {
+    width: 100%;
+    padding: 100px 20px; /* Padidiname viršutinį tarpą, kad neatsidurtų po kategorijų juosta */
+    position: relative;
+    z-index: 2; /* Užtikriname, kad tekstas būtų viršuje */
+    color: rgb(221, 226, 148); /* Balta spalva geresniam matomumui */
+  }
+  
+  /* Meniu juosta */
+  .category-nav {
+    display: flex;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    width: 100%;
+    position: fixed; /* Fiksuota juosta, kad būtų visada viršuje */
+    top: 0;
+    z-index: 10; /* Užtikriname, kad juosta būtų virš kitų elementų */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Kategorijų mygtukai */
+  .category-btn {
+    background-color: #f0f0f0;
+    border: none;
+    margin: 0 20px;
+    padding: 15px 25px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s ease;
+  }
+  
+  .category-btn:hover {
+    background-color: #ddd;
+    transform: scale(1.05);
+  }
+  
+  /* Produktų sąrašas */
+  .product-list {
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.8); /* Kontrastinis fonas tekstui */
+    max-width: 1100px;
+    margin: 120px auto 0 auto; /* Pridedame viršutinį margin, kad produktų sąrašas neatsirastų po fiksuota meniu juosta */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 2; /* Produktų sąrašas turi būti virš fono uždengimo */
+  }
+  
+  .product-list h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: white;
+  }
+  
+  .product-list p {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+    color: white;
+  }
+  
+  /* Modal langai */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background-color: geresniam(139, 48, 48);
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  /* login button style */
+  label {
+    display: block;
+    margin-top: 10px;
+  }
+  
+  .card-container.card {
+    max-width: 350px !important;
+    padding: 40px 40px;
+  }
+  
+  .card {
+    background-color: rgba(255, 255, 255, 0.8); /* Skaidri balta spalva */
+    padding: 20px 25px 30px;
+    margin: 0 auto 25px;
+    margin-top: 50px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  }
+  
+  .profile-img-card {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+  }
+  .navbar {
+    background-color: rgba(0, 0, 0, 0.5); /* Skaičius 0.5 reiškia 50% skaidrumą */
+    padding: 10px;
+  }
+  
+  .navbar-nav .nav-link {
+    color: white; /* Kad nuorodų tekstas būtų gerai matomas */
+  }
+  
+  .navbar-brand {
+    color: white; /* Kad logotipo tekstas būtų baltas */
+  }
+  
+  .navbar a:hover {
+    color: yellow; /* Kad nuorodų tekstas pakeistų spalvą užvedus pelę */
+  }

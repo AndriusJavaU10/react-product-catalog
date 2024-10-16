@@ -13,7 +13,7 @@ function ProductList({ selectedCategory }) {
 
   // Fetch products based on selected category
   const fetchProducts = useCallback(() => {
-    fetch('http://localhost:8080/api/products')
+    fetch('http://localhost:8080/api/products/all')
       .then((response) => response.json())
       .then((data) => setProducts(data))
       .catch((error) => console.error('Error fetching products:', error));
@@ -70,7 +70,7 @@ function ProductList({ selectedCategory }) {
 
               <div className="product-actions">
               <button onClick={() => handleUpdate(product)}>Update</button>
-                <DeleteProduct productId={product.id} onDeleteSuccess={() => fetchProducts()} /> {/* Naudojamas jūsų jau turimas DeleteProduct komponentas */}
+                <DeleteProduct productId={product.id} onDeleteSuccess={() => fetchProducts()} /> {/* he existing DeleteProduct component is used */}
               </div>
             </li>
           ))

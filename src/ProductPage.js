@@ -4,12 +4,12 @@ import CATEGORIES from './Categories';
 import './App.css'; 
 
 function ProductPage({ onSelectProduct, onCategorySelect }) {
-    const [selectedCategory, setSelectedCategory] = useState("");  // Valdome pasirinktą kategoriją
+    const [selectedCategory, setSelectedCategory] = useState("");  // Manage the selected category
   
     const handleCategorySelect = (category) => {
-      setSelectedCategory(category);  // Nustatome pasirinktą kategoriją
+      setSelectedCategory(category);  // Sets the selected category
       if (onCategorySelect) {
-        onCategorySelect(category);  // Patikriname, ar onCategorySelect egzistuoja prieš kviesdami
+        onCategorySelect(category);  // Checking that onCategorySelect exists before calling it
       }
     };
   
@@ -19,7 +19,7 @@ function ProductPage({ onSelectProduct, onCategorySelect }) {
   
     return (
       <div>
-        {/* Kategorijų mygtukai */}
+        {/* Category buttons*/}
         <div className="category-buttons">
           {CATEGORIES.map((category) => (
             <button
@@ -32,8 +32,9 @@ function ProductPage({ onSelectProduct, onCategorySelect }) {
           ))}
         </div>
   
-        {/* Visų produktų sąrašas rodomas iš karto */}
+        {/* List of all products displayed at once */}
       <ProductList selectedCategory={selectedCategory} onSelectProduct={handleProductSelect} />
+      
     </div>
   );
 }

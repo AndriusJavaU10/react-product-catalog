@@ -4,35 +4,76 @@ body, html {
   padding: 0;
   height: 100%;
   font-family: Arial, sans-serif;
-  overflow-x: hidden; /* Užtikriname, kad nebūtų horizontalios slinkties */
-  background-image: url('./images/modern_renaissance_marketplace.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed; /* Fiksuotas fonas visada lieka matomas */
+  overflow-x: hidden; /* Užtikrina, kad nebūtų horizontalios slinkties */
 }
 
-/* Pirmo puslapio stilius */
+/* Fonas antram puslapiui */
+.catalog-page {
+  background-image: url('./images/modern_renaissance_marketplace.jpg'); /* Antras puslapis */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Fiksuotas fonas */
+}
+
+/* Pirmo puslapio (Home) stilius */
 .home-page {
   width: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column; /* Kad turinys būtų išdėstytas vertikaliai */
+  background-image: url('./images/marketplace_square.jpg'); /* Pirmas puslapis */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Fiksuotas fonas */
 }
 
-#root {
-  height: 100%;
+.app-title {
+  font-size: 4rem;
+  color: #fff; /* Balta spalva */
+  text-align: center;
+  cursor: pointer;  /* Converts a note to a reference */
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
-.app-container {
-  width: 100%;
+.app-title:hover {
+  transform: scale(1.05); /* Užrašas padidėja užvedus pelę */
+  color: yellowgreen; /* Užrašas keičia spalvą */
+}
+
+/* Autentifikacijos mygtukų stiliai */
+.auth-links {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px; /* Tarpas tarp mygtukų */
+}
+
+.auth-links a, .auth-links button {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.6); /* Pusiau skaidri foninė spalva */
+  transition: background-color 0.3s;
+  border: none;
+}
+
+.auth-links a:hover, .auth-links button:hover {
+  background-color: rgba(255, 255, 255, 0.3); /* Skaidresnė spalva užvedus pelę */
+}
+
+/* Produktų puslapio struktūros stiliai */
+.catalog-page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
+  z-index: 0; /* Fonas turi būti po viskuo */
 }
 
-/* Fono uždengimas */
 .catalog-page::before {
   content: '';
   position: absolute;
@@ -44,32 +85,12 @@ body, html {
   z-index: 1; /* Tai turi būti žemesnė nei teksto sluoksniai */
 }
 
-.catalog-page {
-  min-height: 100vh;
-  position: relative;
-  z-index: 0; /* Fonas turi būti po viskuo */
-}
-
-.app-title {
-  font-size: 4rem;
-  color: white;
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.app-title:hover {
-  transform: scale(1.05); /* Užrašas padidėja užvedus pelę */
-  color: #ffeb3b; /* Užrašas keičia spalvą */
-}
-
-/* Antro puslapio stilius */
 .catalog-content {
   width: 100%;
-  padding: 100px 20px; /* Padidiname viršutinį tarpą, kad neatsidurtų po kategorijų juosta */
+  padding: 100px 20px;
   position: relative;
-  z-index: 2; /* Užtikriname, kad tekstas būtų viršuje */
-  color: white; /* Balta spalva geresniam matomumui */
+  z-index: 2;
+  color: rgb(221, 226, 148); /* Šviesiai geltona spalva geresniam matomumui */
 }
 
 /* Meniu juosta */
@@ -86,15 +107,41 @@ body, html {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Kategorijų mygtukai */
-.category-btn {
-  background-color: #f0f0f0;
+/* Stilius mygtukui „Back to Products“ */
+.back-to-products-btn {
+  display: block; /* Užtikrina, kad mygtukas visada matomas kaip atskiras elementas */
+  margin: 10px auto;;
+  padding: 10px 20px;  
+  background-color: rgba(0, 0, 0, 0.7); /* Pusiau skaidrus fonas */
+  color: #fff;
   border: none;
-  margin: 0 20px;
-  padding: 15px 25px;
-  font-size: 1.2rem;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s ease;
+  transition: background-color 0.3s;
+}
+
+.back-to-products-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3); /* Šviesesnis fonas užvedus pelę */
+}
+
+/* Papildomi stiliai, kad nebūtų slėpiamas mygtukas */
+.catalog-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centruoja turinį horizontaliai */
+  justify-content: flex-start; /* Išlaiko turinį viršuje */
+  padding: 20px;
+  position: relative;
+}
+
+
+
+/* Kategorijų mygtukai ir produktų sąrašas */
+.category-btn, .product-list {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .category-btn:hover {
@@ -107,10 +154,10 @@ body, html {
   padding: 40px;
   background-color: rgba(0, 0, 0, 0.8); /* Kontrastinis fonas tekstui */
   max-width: 1100px;
-  margin: 120px auto 0 auto; /* Pridedame viršutinį margin, kad produktų sąrašas neatsirastų po fiksuota meniu juosta */
+  margin: 120px auto 0 auto; /* Pridedame viršutinį margin */
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 2; /* Produktų sąrašas turi būti virš fono uždengimo */
+  z-index: 2;
 }
 
 .product-list h2 {
@@ -140,9 +187,53 @@ body, html {
 }
 
 .modal-content {
-  background-color: white;
+  background-color: rgba(111, 172, 41, 0.555); /* green, add new product */
   padding: 20px;
   border-radius: 8px;
   max-width: 500px;
   width: 100%;
+}
+
+/* Prisijungimo/registracijos stilius */
+.card-container.card {
+  max-width: 350px !important;
+  padding: 40px 40px;
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.8); /* Skaidri balta spalva */
+  padding: 20px 25px 30px;
+  margin: 0 auto 25px;
+  margin-top: 50px;
+  border-radius: 2px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.profile-img-card {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 10px;
+  display: block;
+  border-radius: 50%;
+}
+
+/* Navbar stilius */
+.navbar {
+  background-color: rgba(0, 0, 0, 0.5); /* Pusiau skaidrus fonas */
+  padding: 10px;
+}
+
+.navbar-nav .nav-link {
+  color: white !important; /* Baltos nuorodos */
+  font-size: 1.2rem;
+  padding: 5px 10px;
+}
+
+.navbar-brand {
+  color: white !important; /* Baltas logotipas */
+  font-size: 1.4rem;
+}
+
+.navbar a:hover {
+  color: yellow !important; /* Spalvos pasikeitimas užvedus pelę */
 }
