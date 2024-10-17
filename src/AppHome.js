@@ -1,17 +1,28 @@
+// AppHome.js
 import React from 'react';
-import { Link } from 'react-router-dom';
+import './App.css';
+import { useNavigate } from 'react-router-dom';
 
 const AppHome = () => {
+    const navigate = useNavigate();
+
+    const handlePageTransition = () => {
+        console.log('Navigating to the product catalog page'); 
+        navigate('/catalog'); // Go to the catalog page
+    };
+
     return (
-      <div className="home-page">
-        <h1 className="app-title">Welcome to the Online Product Catalog</h1>
-        <p>Explore a wide range of products.</p>
-        <div className="auth-links">
-          {/* Pagrindinio puslapio perėjimas į produktų puslapį */}
-          <Link to="/products" className="btn btn-primary">View Products</Link>
+        <div className="home-page">
+            <h1 
+                className="app-title"
+                onClick={handlePageTransition} // Assignment to a new function
+                style={{ cursor: 'pointer' }} // Makes a note as a link/button
+            >
+                Welcome to the Online Product Catalog
+            </h1>            
+            
         </div>
-      </div>
     );
-  };
+};
 
 export default AppHome;

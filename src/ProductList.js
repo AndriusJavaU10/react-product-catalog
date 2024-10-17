@@ -54,7 +54,7 @@ function ProductList({ selectedCategory }) {
     <div className="product-list-container">
       <div className="product-list-header">
        
-        <button onClick={handleAddProduct} className="add-product-btn">
+        <button onClick={handleAddProduct} className="add-product-btn" tabIndex="0">
           Add New Product
         </button>
       </div>

@@ -1,15 +1,13 @@
 
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
-// import AppHome from './AppHome';
-// import AppProduct from './AppProduct';
-// import AppLog from './AppLog';
+
 import AppMain from './AppMain';
 import AppLog from './AppLog';
+import AppHome from './AppHome';
 
 import Login from "./components/Login";
 import Register from "./components/Register";
-import Home from "./components/Home";
 import Profile from "./components/Profile";
 import BoardCustomer from "./components/BoardCustomer";
 import BoardModerator from "./components/BoardModerator";
@@ -19,20 +17,19 @@ import PrivateRoute from "./Services/privateRoute";
 function App() {
   return (
     <>
-    <AppLog /> {/* Pagrindinis navigacijos komponentas */}
-    <Routes>
-      <Route path="/" element={<AppMain />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/profile" element={<PrivateRoute element={<Profile />} />} />
-      {/* Protected links */}
-      <Route path="/user" element={<PrivateRoute element={<BoardCustomer />} />} />
-      <Route path="/mod" element={<PrivateRoute element={<BoardModerator />} />} />
-      <Route path="/admin" element={<PrivateRoute element={<BoardAdmin />} />} />
-    </Routes>
-  </>
-   
+      <AppLog /> {/* Pagrindinis navigacijos komponentas */}
+      <Routes>
+        <Route path="/" element={<AppHome />} />    {/* Home page */}
+        <Route path="/catalog" element={<AppMain />} /> {/* Product catalog */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />        
+        {/* Protected links */}
+        <Route path="/profile" element={ <PrivateRoute> <Profile />  </PrivateRoute> } />      
+        <Route path="/user" element={ <PrivateRoute> <BoardCustomer />  </PrivateRoute> } />
+        <Route path="/mod" element={<PrivateRoute> <BoardModerator /> </PrivateRoute>  } />
+        <Route path="/admin" element={  <PrivateRoute>  <BoardAdmin /> </PrivateRoute> } />
+      </Routes>
+    </>
   );
 }
 

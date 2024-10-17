@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
- import { Link } from "react-router-dom";   //``Link'' is required for navigation
+import { Link } from "react-router-dom";   //``Link'' is required for navigation
 import "bootstrap/dist/css/bootstrap.min.css";   
 
 import AuthService from './Services/auth.service';
@@ -39,7 +39,7 @@ const AppLog = () => {
     
       <div className="navbar-nav mr-auto">
         <li className="nav-item">
-          <Link to={"/home"} className="nav-link">
+          <Link to={"/"} className="nav-link">
             Home
           </Link>
         </li>
