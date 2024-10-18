@@ -1,15 +1,16 @@
-// src/components/ProductList.js
 import React, { useEffect, useState, useCallback } from 'react';
 import CATEGORIES from './Categories';
 import UpdateProduct from './UpadateProduct';
 import AddProduct from './AddProduct';
 import DeleteProduct from './DeleteProduct';
+import { getUserRole } from './Services/auth-header'; // Imported functions of user roles
 
 function ProductList({ selectedCategory }) {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]); // State for filtered products
   const [productToUpdate, setProductToUpdate] = useState(null);
   const [showAddProduct, setShowAddProduct] = useState(false);
+  const userRoles = getUserRole();  // Gauname vartotojo roles
 
   // Fetch products based on selected category
   const fetchProducts = useCallback(() => {
@@ -35,14 +36,13 @@ function ProductList({ selectedCategory }) {
     }
   }, [selectedCategory, products]);
 
-  
-
   const handleUpdate = (product) => {
     setProductToUpdate(product); // Set the selected product for update
   };
 
   const handleAddProduct = () => {
     setShowAddProduct(true); // Show the modal for adding a new product
+    console.log(showAddProduct); // True should be after the button is clicked
   };
 
   const handleProductAdded = () => {
@@ -53,10 +53,12 @@ function ProductList({ selectedCategory }) {
   return (
     <div className="product-list-container">
       <div className="product-list-header">
-       
-        <button onClick={handleAddProduct} className="add-product-btn" tabIndex="0">
-          Add New Product
-        </button>
+        {/* Tik vartotojams su ADMIN role rodome "Add New Product" mygtuką */}
+        {userRoles.includes('ROLE_ADMIN') && (
+          <button onClick={handleAddProduct} className="add-product-btn" tabIndex="0">
+            Add New Product
+          </button>
+        )}
       </div>
 
       <ul className="product-list">
@@ -69,8 +71,15 @@ function ProductList({ selectedCategory }) {
               <p>Category: {CATEGORIES.find((cat) => cat.value === product.category)?.label || product.category}</p>
 
               <div className="product-actions">
-              <button onClick={() => handleUpdate(product)}>Update</button>
-                <DeleteProduct productId={product.id} onDeleteSuccess={() => fetchProducts()} /> {/* he existing DeleteProduct component is used */}
+                {/* Tik vartotojams su ADMIN role rodome "Update" mygtuką */}
+                {userRoles.includes('ROLE_ADMIN') && (
+                  <button onClick={() => handleUpdate(product)}>Update</button>
+                )}
+                
+                {/* Tik vartotojams su ADMIN role rodome "Delete" mygtuką */}
+                {userRoles.includes('ROLE_ADMIN') && (
+                  <DeleteProduct productId={product.id} onDeleteSuccess={() => fetchProducts()} />
+                )}
               </div>
             </li>
           ))
@@ -91,11 +100,8 @@ function ProductList({ selectedCategory }) {
           onClose={() => setShowAddProduct(false)} // Close the modal manually
         />
       )}
-        
-
     </div>
   );
 }
-
 
 export default ProductList;

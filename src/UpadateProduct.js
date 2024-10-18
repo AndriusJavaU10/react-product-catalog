@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CATEGORIES from './Categories';
-
+import authHeader from './Services/auth-header';  
 
 function UpdateProduct({ productId, onClose }) {
   // State for product details
@@ -13,15 +13,26 @@ function UpdateProduct({ productId, onClose }) {
 
   // Fetch product details when the component mounts
   useEffect(() => {
-    // Fetch the existing product details
-    fetch(`http://localhost:8080/api/products/${productId}`)
-      .then((response) => response.json())
+    // Fetch the existing product details with authorization
+    fetch(`http://localhost:8080/api/products/${productId}`, {
+      method: 'GET',
+      headers: {
+        ...authHeader(), // Adds the Authorization header for GET request
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Unauthorized or product not found');
+        }
+        return response.json();
+      })
       .then((data) => setProduct(data))
       .catch((error) => console.error('Error fetching product:', error));
   }, [productId]);
 
-  // Handle form changes
-  const handleChange = (e) => {
+   // Handle form changes
+   const handleChange = (e) => {
     setProduct({
       ...product,
       [e.target.name]: e.target.value,
@@ -31,23 +42,31 @@ function UpdateProduct({ productId, onClose }) {
   // Handle form submit
   const handleUpdate = (e) => {
     e.preventDefault();
+
     // PUT request to update the product
     fetch(`http://localhost:8080/api/products/${productId}`, {
       method: 'PUT',
       headers: {
+        ...authHeader(), // Adds the Authorization heade
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(product),
+    })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Unauthorized or failed to update product');
+      }
+      return response.json();
     })
     .then(() => {
       alert('Product updated successfully');
       onClose(); // Close the update form when successful
     })
-    .catch(error => console.error('Error updating product:', error));
-  };
+    .catch((error) => console.error('Error updating product:', error));
+};
 
   return (
-    <div className="update-product-modal"> {/* Galite pridėti CSS modalo stiliams */}
+    <div className="update-product-modal"> 
       <h2>Update Product</h2>
       <form onSubmit={handleUpdate}>
         <input

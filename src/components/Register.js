@@ -90,7 +90,7 @@ const Register = () => {
                                     type="text"
                                     className="form-control"
                                     name="username"
-                                    value={username}
+                                    value={username || ""}
                                     onChange={(e) => setUsername(e.target.value)}
                                     onBlur={(e) => vusername(e.target.value)}
                                 />
@@ -114,7 +114,7 @@ const Register = () => {
                                     type="password"
                                     className="form-control"
                                     name="password"
-                                    value={password}
+                                    value={password || ""}
                                     onChange={(e) => setPassword(e.target.value)}
                                     onBlur={(e) => vpassword(e.target.value)}
                                 />

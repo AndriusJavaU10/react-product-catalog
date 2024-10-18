@@ -1,12 +1,18 @@
 import React from 'react';
 import { confirmAlert } from 'react-confirm-alert'; // Import confirmAlert
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import CSS
+import authHeader from './Services/auth-header';  
 
 function DeleteProduct({ productId, onDeleteSuccess }) {
   // Function to delete the product
   const deleteProduct = () => {
     fetch(`http://localhost:8080/api/products/${productId}`, {
       method: 'DELETE',
+      headers: {
+        ...authHeader(), // Adds the Authorization header
+        'Content-Type': 'application/json'
+      }
+
     })
       .then((response) => {
         if (response.ok) {
