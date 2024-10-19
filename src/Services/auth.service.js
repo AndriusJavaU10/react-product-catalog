@@ -42,13 +42,16 @@ const login = async (username, password) => {
   };
             // Get the current user
      const getCurrentCustomer = () => {
-     const customer = localStorage.getItem("customer");
-     return customer ? JSON.parse(customer) : null;
+     const customer = localStorage.getItem("customer");               
+     
+
+    return customer ? JSON.parse(customer) : null;
   };
   // Automatically adds the Authorization header to all axios requests
   axios.interceptors.request.use(
     (config) => {
         const customer = getCurrentCustomer();
+        
         if (customer && customer.accessToken) {
             config.headers["Authorization"] = 'Bearer ' + customer.accessToken;
         }

@@ -30,9 +30,10 @@ function ProductList({ selectedCategory }) {
     if (selectedCategory) {
       setFilteredProducts(
         products.filter(product => product.category === selectedCategory)
+        .sort((a,b) => a.name.localeCompare(b.name))   // Sort by name
       );
     } else {
-      setFilteredProducts(products); // If no category is selected, show all products
+      setFilteredProducts(products.sort((a,b) => a.name.localeCompare(b.name))); // If no category is selected, show all products and  Sort all by name
     }
   }, [selectedCategory, products]);
 
