@@ -19,7 +19,7 @@ This is a Spring Boot project that implements a REST API with JWT-based authenti
   
 ## Prerequisites
 Before you begin, ensure you have the following installed:
-- Java JDK 8+
+- Java JDK 17+
 - Maven 3.6+
 - MySQL (Ensure you have a running MySQL instance)
 - Git (to clone the repository)
@@ -30,7 +30,7 @@ To run the project on your local machine, follow these steps:
 
 ### 1. **Copy the project** from GitHub:
 
- git clone https://github.com/your-name/project-name.git
+ git clone https://github.com/AndriusJavaU10/react-product-catalog.git
  cd project-name
 
 ### 2. Set up the MySQL database
