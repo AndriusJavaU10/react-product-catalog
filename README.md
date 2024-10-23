@@ -1,70 +1,139 @@
-# Getting Started with Create React App
+# Product catalog Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a Spring Boot project that implements a REST API with JWT-based authentication. The project uses MySQL as the database and Maven as the build tool. It supports three user roles: user, moderator, and admin.
 
-## Available Scripts
 
-In the project directory, you can run:
+## Content
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [API_Endpoints](#api_endpoints)
+- [Authentication](#authentication)
+- [Technology](#technology)
+- [Developers](#developers)
 
-### `npm start`
+## Features
+- User role: Can view products.
+- Moderator role: Can view and modify products.
+- Admin role: Has full access to all actions (CRUD operations).
+  
+## Prerequisites
+Before you begin, ensure you have the following installed:
+- Java JDK 17+
+- Maven 3.6+
+- MySQL (Ensure you have a running MySQL instance)
+- Git (to clone the repository)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Installation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+To run the project on your local machine, follow these steps:
 
-### `npm test`
+### 1. **Copy the project** from GitHub:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+ git clone https://github.com/AndriusJavaU10/react-product-catalog.git
+ cd project-name
 
-### `npm run build`
+### 2. Set up the MySQL database
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Create a new MySQL database:  CREATE DATABASE spring_boot_db;
+2. Create a user and grant privileges: CREATE USER 'springuser'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON spring_boot_db.* TO 'springuser'@'localhost';
+FLUSH PRIVILEGES;
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 4. Install dependencies:
+Use Maven to install all required dependencies. Run the following command:
+```bash
+npm install
+```
+### 5. Running the Application
+```bash
+npm start
+```
+This command will launch the React application and it will be available in the browser via http://localhost:3000.
+### 6.Check that both frontend and backend are working:
+- In the browser, the backend must be accessible via http://localhost:8080 (or another port).
+- The frontend must be accessible via http://localhost:3000.The frontend must be accessible via http://localhost:3000.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 7.Additional actions
+- **Frontend-backend API integration**:
+  -  Make sure the frontend is sending requests to the correct backend server address, e.g.:
+``javascript
+const API_URL = "http://localhost:8080/api/";
+``
+##### This is the standard way to clone, run, and work with a Spring Boot backend and React frontend in a Visual Studio Code environment.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+##  API_Endpoints
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+|Method|Endpoint                | Role             | Description                 |
+|------|------------------------|------------------|-----------------------------|
+|GET   |	`/api/products`       | User, Mod, Admin |	View all products          |
+|POST  |	`/api/products`       | Mod, Admin       |	Add a new product          |
+|PUT   |	`/api/products/{id}`  | Mod, Admin       |	Update an existing product |
+|DELETE|	`/api/products/{id}`  | Admin            |	Delete a product           |
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+|Method|Endpoint                | Role              | Description                  |
+|------|------------------------|-------------------|------------------------------|
+|GET   |	`/api/customers`       | Admin            |	View all customers           |
+|POST  |	`/api/customers`       | User, Mod, Admin |	Add a new customers          |
+|PUT   |	`/api/customers/{id}`  | User, Mod, Admin |	Update an existing customers |
+|DELETE|	`/api/customers/{id}`  | Admin            |	Delete a customers           |
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Authentication
+The API uses JWT (JSON Web Token) for authentication. You need to authenticate yourself to get a JWT token, which will be used for protected endpoints.
+### Sign Up
+- Endpoint: /api/auth/signup
+- Method: POST
+- Payload:
+```json
+{
+  "username": "exampleUser",
+  "email": "user@example.com",
+  "password": "examplePassword"
+}
+```
+### Sign In
+- Endpoint: /api/auth/signin
+- Method: POST
+- Payload:
+```json
+{
+  "username": "exampleUser",
+  "password": "examplePassword"
+}
+```
+### Example Response
+```json
+{
+  "id": 1,
+  "username": "exampleUser",
+  "email": "user@example.com",
+  "roles": ["ROLE_USER"],
+  "tokenType": "Bearer",
+  "accessToken": "your-jwt-token"
+}
+```
+Use this accessToken to authenticate API requests by adding it to the Authorization header like so:
+```makefile
+Authorization: Bearer your-jwt-token
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Technology
+- Java: Version 17
+- Spring Boot: Version 3.3.4
+- Database: MySQL
+- Spring Security
+- Spring Web
+- SpringDoc OpenAPI Starter WebMVC UI
+- Jackson Databind. General data-binding functionality for Jackson: works on core streaming API
 
-### Code Splitting
+## Developers
+- Name: Andrius Rikteris
+- Email: andrius.rikteris@codeacademylt.onmicrosoft.com
+- GitHub: [AndriusJavaU10](https://github.com/AndriusJavaU10/spring-react-product-catalog)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
+  
