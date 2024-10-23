@@ -42,6 +42,7 @@ const login = async (username, password) => {
   };
             // Get the current user
      const getCurrentCustomer = () => {
+    
      const customer = localStorage.getItem("customer");               
      
 
@@ -51,7 +52,8 @@ const login = async (username, password) => {
   axios.interceptors.request.use(
     (config) => {
         const customer = getCurrentCustomer();
-        
+        //console.log("Customer Roles:", customer);        
+
         if (customer && customer.accessToken) {
             config.headers["Authorization"] = 'Bearer ' + customer.accessToken;
         }

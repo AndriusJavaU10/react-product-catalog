@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import AppMain from './AppMain';
 import AppLog from './AppLog';
@@ -10,23 +10,10 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Profile from "./components/Profile";
 import BoardCustomer from "./components/BoardCustomer"
-import BoardModerator from "./components/BoardModerator";
+// import BoardModerator from "./components/BoardModerator";
 import BoardAdmin from "./components/BoardAdmin";
-import AuthService from './Services/auth.service';
+import PrivateRoute from './Services/privateRoute';
 
-
-const ProtectedRoute = ({ element: Component }) => {
-  const navigate = useNavigate();
-  const currentCustomer = AuthService.getCurrentCustomer();
-
-  if (!currentCustomer) {
-    console.log("Not authenticated, redirecting to login");
-    navigate("/login"); // Peradresavimas, jei neprisijungęs
-    return null; // Neleidžia patekti į komponentą, kol vyksta peradresavimas
-  }
-
-  return <Component />;
-};
 
 
 function App() {
@@ -40,11 +27,11 @@ function App() {
         <Route path="/catalog" element={<AppMain />} /> {/* Product catalog */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />        
-        {/* Protected links */}
-        <Route path="/profile" element={<ProtectedRoute element={Profile} />}    />     
-        <Route path="/user" element={<ProtectedRoute element={BoardCustomer} />} />
-        <Route path="/mod" element={<ProtectedRoute element={BoardModerator} />} />
-        <Route path="/admin" element={<ProtectedRoute element={BoardAdmin} />}   />
+        {/* Protected links with roles */}
+        <Route path="/profile" element={<PrivateRoute element={Profile} allowedRoles={["ROLE_USER", "ROLE_ADMIN", "ROLE_MODERATOR"]} />} />     
+        <Route path="/user" element={<PrivateRoute element={BoardCustomer} allowedRoles={["ROLE_USER"]} />} />
+        {/* <Route path="/mod" element={<PrivateRoute element={BoardModerator} allowedRoles={["ROLE_MODERATOR", "ROLE_ADMIN"]} />} /> */}
+        <Route path="/admin" element={<PrivateRoute element={BoardAdmin} allowedRoles={["ROLE_ADMIN"]} />} />
       </Routes>
     </>
   );

@@ -9,9 +9,11 @@ const BoardModerator = () => {
   useEffect(() => {
     CustomerService.getModeratorBoard().then(
       (response) => {
+        console.log("Server response data:", response.data);
         setContent(response.data);
       },
       (error) => {
+        console.error("Error response:", error.response);
         const _content =
           (error.response &&
             error.response.data &&

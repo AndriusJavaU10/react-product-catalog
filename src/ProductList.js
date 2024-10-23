@@ -55,7 +55,7 @@ function ProductList({ selectedCategory }) {
     <div className="product-list-container">
       <div className="product-list-header">
         {/* Tik vartotojams su ADMIN role rodome "Add New Product" mygtuką */}
-        {userRoles.includes('ROLE_ADMIN') && (
+        {(userRoles.includes('ROLE_ADMIN') || userRoles.includes('ROLE_MODERATOR')) && (
           <button onClick={handleAddProduct} className="add-product-btn" tabIndex="0">
             Add New Product
           </button>
@@ -73,7 +73,7 @@ function ProductList({ selectedCategory }) {
 
               <div className="product-actions">
                 {/* Tik vartotojams su ADMIN role rodome "Update" mygtuką */}
-                {userRoles.includes('ROLE_ADMIN') && (
+                {(userRoles.includes('ROLE_ADMIN') || userRoles.includes('ROLE_MODERATOR'))  && (
                   <button onClick={() => handleUpdate(product)}>Update</button>
                 )}
                 
